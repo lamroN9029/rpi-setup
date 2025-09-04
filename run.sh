@@ -8,7 +8,9 @@ echo "Script Programming Tools :: $Version"
 
 # 2. Install nodejs
 echo "Installing nodejs automatically..."
-sudo apt update -qq
+
+sudo apt clean
+sudo apt update --fix-missing -qq
 sudo apt install -y nodejs npm
 
 # 3. Download pyenv (Python version management)
@@ -38,6 +40,7 @@ if ! command -v pyenv >/dev/null 2>&1; then
         echo '# <<< pyenv setup (interactive shell) <<<' >> "$bashrc_file"
     fi
     
+    pyenv rehash
     echo "pyenv installation complete."
 else
     echo "pyenv is already installed."
@@ -78,10 +81,22 @@ chmod 700 "$pathCONF"
 # echo "Installing python3-picamera2"
 # sudo apt install -y python3-picamera2
 echo "Installing system dependencies for building Python..."
-
+sudo apt clean
+sudo apt update --fix-missing -qq
 sudo apt install -y -qq make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-pyenv install -s "$pyVERSION" # --skip-existing
-pyenv virtualenv "$pyVERSION" "$PYENV_NAME"
+
+# install python version if not exist
+pyenv install -s "$pyVERSION"
+
+# check if virtualenv exists, create if not
+if ! pyenv versions --bare | grep -qx "$PYENV_NAME"; then
+    echo "Creating virtualenv $PYENV_NAME..."
+    pyenv virtualenv "$pyVERSION" "$PYENV_NAME"
+else
+    echo "Virtualenv $PYENV_NAME already exists."
+fi
+
+# activate environment
 pyenv activate "$PYENV_NAME"
 echo "Python path: $(which python)"
 
@@ -135,4 +150,4 @@ fi
 # jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=""
 
 # exec jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=""
-exec jupyterhub -f /home/admin/Desktop/jupyterhub_config.py
+jupyterhub -f /home/admin/Desktop/jupyterhub_config.py

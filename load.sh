@@ -14,7 +14,7 @@ echo "Network is ready."
 # Discard local changes and make branch identical to origin/main
 cd /home/admin/Desktop
 
-git fetch origin
-git reset --hard origin/main
+#~ git fetch origin
+#~ git reset --hard origin/main
 
 . /home/admin/Desktop/run.sh
