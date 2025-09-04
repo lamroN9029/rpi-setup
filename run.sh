@@ -15,7 +15,7 @@ sudo apt install -y nodejs npm
 platformCPU=$(uname -m)
 pyVERSION="3.12.0"
 
-PYENV_NAME="pyenv_${Version}_${platformCPU}_${pyVERSION}"
+PYENV_NAME="pyenv_${platformCPU}_${pyVERSION}"
 
 if ! command -v pyenv >/dev/null 2>&1; then
     echo "pyenv not found. Installing pyenv automatically..."
@@ -96,24 +96,22 @@ else
     
     python -m pip install --upgrade pip --cache-dir "$pathCONF/cache" # $HOME/Desktop/.__conf_ini/cache
     python -m pip install jupyter notebook
-    # python -m pip install matplotlib plotting plotly pandas
+    python -m pip install matplotlib plotting plotly pandas
 
+    python -m pip install scikit-learn scikit-image opencv-python # or opencv-python-headless
+    python -m pip install pyinstaller speedtest-cli pythonping
+    python -m pip install nbtutor
     
-    # python -m pip install scikit-learn scikit-image opencv-python # opencv-python-headless
-    # python -m pip install pyinstaller speedtest-cli pythonping
-    # python -m pip install nbtutor
+    python -m pip install numpy tensorflow torch torchvision torchaudio tensorboard
     
-    # python -m pip install numpy tensorflow torch torchvision torchaudio tensorboard
-    
-    # python -m pip install yolov10
+    python -m pip install yolov10
     
     # python -m pip install fastapi uvicorn # api
     python -m pip install RPi.GPIO pigpio gpiozero # for using rasberry pi as a main
     # python -m pip install platformio # ardunio on jupyterlab
     # python -m pip install websockets # websockets for using pi as a wss
-    # python -m pip install ldap3 # for testing ldap connection
     python -m pip install jupyterhub # multi-user
-    # python -m pip install dockerspawner # fake user
+    # python -m pip install dockerspawner # docker user
     sudo npm install -g configurable-http-proxy
     
     echo "Jupyter path: $(which jupyter)"
@@ -137,4 +135,4 @@ fi
 # jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=""
 
 # exec jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=""
-exec jupyterhub -f $HOME/Desktop/jupyterhub_config.py
+exec jupyterhub -f /home/admin/Desktop/jupyterhub_config.py
