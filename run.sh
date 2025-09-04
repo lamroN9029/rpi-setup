@@ -40,11 +40,12 @@ if ! command -v pyenv >/dev/null 2>&1; then
         echo '# <<< pyenv setup (interactive shell) <<<' >> "$bashrc_file"
     fi
     
-    pyenv rehash
     echo "pyenv installation complete."
 else
     echo "pyenv is already installed."
 fi
+
+pyenv rehash # always rehash for running jupyterhub on reboot
 
 echo "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
 echo "pyenv version: $(pyenv --version)"
