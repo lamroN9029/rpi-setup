@@ -3,6 +3,8 @@ from jupyterhub.auth import Authenticator
 from jupyterhub.spawner import LocalProcessSpawner
 import requests
 
+dirname_name = ''
+
 class MyLdapAuthenticator(Authenticator):
     def authenticate(self, handler, data):
         # return "admin"

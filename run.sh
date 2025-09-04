@@ -137,4 +137,4 @@ fi
 # jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=""
 
 # exec jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token=""
-exec jupyterhub -f Desktop/jupyterhub_config.py
+exec jupyterhub -f $HOME/Desktop/jupyterhub_config.py
